@@ -10,7 +10,7 @@
 #
 
 import torch
-from scene import Scene
+from scene import Scene, SocketScene
 import os
 from tqdm import tqdm
 from os import makedirs
@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
     dataset, iteration, pipe = model.extract(args), args.iteration, pipeline.extract(args)
     gaussians = GaussianModel(dataset.sh_degree)
-    scene = Scene(dataset, gaussians, load_iteration=iteration, shuffle=False)
+    scene = SocketScene(dataset, gaussians, loaded_iter=True, load_iteration=30000)
     bg_color = [1,1,1] if dataset.white_background else [0, 0, 0]
     background = torch.tensor(bg_color, dtype=torch.float32, device="cuda")
     
